@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>管理區域</title>
+  <style>
+    body {
+        background-image: url('/static/background_08.jpg');
+        background-size: 100vw 100vh; 
+        background-repeat: no-repeat;
+        margin: 0; 
+        padding: 0;
+        position: relative; 
+    }
+
+    .container {
+        width: 500px;
+        border: 1px solid #ccc;
+        padding: 20px;
+        margin: 0; 
+        background-color: rgba(255, 204, 204, 0.8);
+        position: absolute;
+        top: 0; 
+        left: 0; 
+        border-radius: 10px; 
+    }
+
+    input[type="submit"] {
+        background-color: #add8e6; 
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+        border-radius: 10px; 
+    }
+
+    input[type="submit"]:hover {
+        box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19); /* 光晕效果 */
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <form method="post" action="/admin_change">
+      <h3> 管理員 {{ admname }} 你正在修改學生資料 </h3><br>
+      你正在更改id： {{ userid }} 的資料 <br/>
+      <label for="username">帳號：</label><input id="username" value="{{ settinguser }}" name="username"><br>
+      <label for="password">密碼：</label><input id="password" value="{{ userpassword }}" name="password"><br>
+      <label for="email">郵件：</label><input id="email" value="{{ useremail }}" name="email"><br>
+      <label for="birthday">生日：</label><input type="date" id="birthday" name="birthday" value="{{ userbirth }}" min="1824-01-01" max="2024-4-20"><br>
+      系所：
+      <select id="department" name="department">
+        <option>請選擇你的系所</option>
+        {% for department_item in list_all_department %}
+            {% if department_item == userdepartment %}
+                <option value="{{ department_item }}" selected>{{ department_item }}</option>
+            {% else %}
+                <option value="{{ department_item }}">{{ department_item }}</option>
+            {% endif %}
+        {% endfor %}
+      </select>
+      <br/>年級：
+      <select id="grade" name="grade">
+        <option>請選擇你的年級</option>
+        {% for grade_item in list_all_grade %}
+            {% if grade_item == usergrade %}
+                <option value="{{ grade_item }}" selected>{{ grade_item }}</option>
+            {% else %}
+                <option value="{{ grade_item }}">{{ grade_item }}</option>
+            {% endif %}
+        {% endfor %}
+      </select>
+      <br/>班級：
+      <select id="ABCD_CLASS" name="ABCD_CLASS">
+        <option>請選擇你的班級</option>
+        {% for class_item in list_all_class %}
+            {% if class_item == ABCDclass %}
+                <option value="{{ class_item }}" selected>{{ class_item }}</option>
+            {% else %}
+                <option value="{{ class_item }}">{{ class_item }}</option>
+            {% endif %}
+        {% endfor %}
+      </select>
+      <br/>
+      <label for="moreclass">超修學分數：</label><input id="moreclass" value="{{ usermoreclass }}" name="moreclass"><br>
+      <label for="photo">照片：</label><input id="photo" value="{{ userphoto }}" name="photo"><br>
+      <label for="first_login_check">初次登入戳記：</label><input id="first_login_check" value="{{ first_check }}" name="first_login_check"><br>
+      <input type="submit" value="修改" name="set_people">
+      <br/><br/><br/><br/><br/><br/><br/><br/>
+      <input type="submit" value="登出" name="backtomenu">
+    </form>
+  </div>
+</body>
+</html>
